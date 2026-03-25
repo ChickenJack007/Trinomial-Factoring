@@ -13,7 +13,8 @@ fn main() {
     b /= gcf;
     c /= gcf;
     println!("\n{gcf}({a}x^2 + {b}x + {c})");
-    //factor(a);
+    println!("{a}");
+    factor(a);
 }
 
 fn get_gcf(a:i32, b:i32, c:i32) -> i32 {
@@ -37,10 +38,22 @@ fn get_gcf(a:i32, b:i32, c:i32) -> i32 {
     return gcf;
 }
 
-fn factor(n: i32){// -> Vec<i32> {
-    let mut factors: Vec<i32> = [1i32, n]; 
-    println!("{:?}", factors);
+fn factor(num: i32){// -> Vec<i32> {
+    let mut fact1 = Vec::new(); 
+    let mut fact2 = Vec::new(); 
 
+    for n in 1..num + 1 {
+        if num % n == 0 {
+            if ! (fact1.contains(&n) || fact2.contains(&n)) {
+                fact1.push(n);
+                fact2.push(num / n);
+            }
+        }
+    }
+
+    for i in 0..fact1.len() {
+        println!("{} x {}", fact1[i], fact2[i]);
+    }
 }
 
 fn prime(n: i32) -> bool {
