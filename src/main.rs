@@ -19,8 +19,6 @@ fn main() {
     let (cfact1, cfact2): (Vec<i32>, Vec<i32>) = factor(equation[2]);
     let afacts: [Vec<i32>; 2] = [afact1, afact2];
     let cfacts: [Vec<i32>; 2] = [cfact1, cfact2];
-    println!("{:?} {:?}", afacts[0], afacts[1]);
-    println!("{:?} {:?}", cfacts[0], cfacts[1]);
     solve(afacts, cfacts, equation[1]);
 }
 
@@ -28,10 +26,10 @@ fn solve(afacts: [Vec<i32>; 2], cfacts: [Vec<i32>; 2], b:i32) {
     for a in 0..afacts[1].len() {
         for n in 0..cfacts[0].len() {
             let equation = (afacts[0][a] * cfacts[1][n]) + (afacts[1][a] * cfacts[0][n]);
-            println!("({}x + {})({}x + {})", afacts[0][a], cfacts[0][n], afacts[1][a], cfacts[1][n]);
-            println!("B = {equation}");
-            if equation == b {
-                println!("Works");
+            //println!("B = {equation}");
+            if equation == b.abs() {
+                println!("({}x + {})({}x + {})", afacts[0][a], cfacts[0][n], afacts[1][a], cfacts[1][n]);
+                //println!("Works");
                 break;
             }
         }
@@ -57,8 +55,8 @@ fn get_gcf(num: [i32; 3]) -> i32 {
     let mut gcf: i32 = 1;
     let mut large_num: i32 = 1;
     for number in num {
-        if large_num < number {
-            large_num = number;
+        if large_num < number.abs() {
+            large_num = number.abs();
         }
     }
     for n in 2..large_num {
