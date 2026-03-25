@@ -26,9 +26,9 @@ fn main() {
 
 fn solve(afacts: [Vec<i32>; 2], cfacts: [Vec<i32>; 2], b:i32) {
     for a in 0..afacts[1].len() {
-        println!("({}x + {})({}x + {})", afacts[0][a], cfacts[0][a], afacts[1][a], cfacts[1][a]);
         for n in 0..cfacts[0].len() {
             let equation = (afacts[0][a] * cfacts[1][n]) + (afacts[1][a] * cfacts[0][n]);
+            println!("({}x + {})({}x + {})", afacts[0][a], cfacts[0][n], afacts[1][a], cfacts[1][n]);
             println!("B = {equation}");
             if equation == b {
                 println!("Works");
@@ -56,14 +56,12 @@ fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
 
 fn get_gcf(num: [i32; 3]) -> i32 {
     let mut gcf: i32 = 1;
-
     let mut large_num: i32 = 1;
     for number in num {
         if large_num < number {
             large_num = number;
         }
     }
-
     for n in 2..large_num {
         if (num[0] % n == 0) && (num[1] % n == 0) && (num[2] % n == 0) {
             gcf = n;
