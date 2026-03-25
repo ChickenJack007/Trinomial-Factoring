@@ -1,23 +1,25 @@
 use input_loop::input_loop;
 
 fn main() {
-    //let mut vec = Vec::new();
     println!("ax^2 + bx + c\n");
-    let mut a: i32 = input_loop("Please input a");
-    let mut b: i32 = input_loop("Please input b");
-    let mut c: i32 = input_loop("Please input c");
-    println!("{a}x^2 + {b}x + {c}");
-    let gcf: i32 = get_gcf(a, b, c);
-    println!("\nGCF: {gcf}");
-    a /= gcf;
-    b /= gcf;
-    c /= gcf;
-    println!("\n{gcf}({a}x^2 + {b}x + {c})");
-    println!("{a}");
-    let (afact1, afact2): (Vec<i32>, Vec<i32>) = factor(a);
-    println!("{:?}\n{:?}", afact1, afact2);
-}
+    let mut equation: [i32; 3] = [1; 3];
+    equation[0] = input_loop("Please input a"); 
+    equation[1] = input_loop("Please input b"); 
+    equation[2] = input_loop("Please input c"); 
+    println!("\n{}x^2 + {}x + {}", equation[0], equation[1], equation[2]);
 
+    let gcf: i32 = get_gcf(equation);
+    println!("\nGCF: {gcf}");
+    for i in 0..3 {
+        equation[i] /= gcf;
+    }
+
+    println!("\n{}({}x^2 + {}x + {})", gcf, equation[0], equation[1], equation[2]);
+    let (afact1, afact2): (Vec<i32>, Vec<i32>) = factor(equation[0]);
+    for i in 0..afact1.len() {
+        println!("{} x {}", afact1[i], afact2[i]);
+    }
+}
 
 fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
     let mut fact1 = Vec::new(); 
@@ -32,27 +34,21 @@ fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
         }
     }
 
-    for i in 0..fact1.len() {
-        println!("{} x {}", fact1[i], fact2[i]);
-    }
     return (fact1, fact2);
 }
 
-fn get_gcf(a:i32, b:i32, c:i32) -> i32 {
+fn get_gcf(num: [i32; 3]) -> i32 {
     let mut gcf: i32 = 1;
-    let mut d = 20;
-    if a > b && a > c {
-        d = a;
-    }
-    else if b > a && b > c {
-        d = b;
-    }
-    else {
-        d = c;
+
+    let mut large_num: i32 = 1;
+    for number in num {
+        if large_num < number {
+            large_num = number;
+        }
     }
 
-    for n in 2..d {
-        if (a % n == 0) && (b % n == 0) && (c % n == 0) {
+    for n in 2..large_num {
+        if (num[0] % n == 0) && (num[1] % n == 0) && (num[2] % n == 0) {
             gcf = n;
         }
     }
