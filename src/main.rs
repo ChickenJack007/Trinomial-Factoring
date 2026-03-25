@@ -36,14 +36,13 @@ fn solve(afacts: [Vec<i32>; 2], cfacts: [Vec<i32>; 2], b:i32) {
             }
         }
     }
-    
 }
 
 fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
     let mut fact1 = Vec::new(); 
     let mut fact2 = Vec::new(); 
 
-    for n in 1..num + 1 {
+    for n in 1..num.abs() + 1 {
         if num % n == 0 {
             if ! (fact1.contains(&n) || fact2.contains(&n)) {
                 fact1.push(n);
