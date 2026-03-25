@@ -14,7 +14,28 @@ fn main() {
     c /= gcf;
     println!("\n{gcf}({a}x^2 + {b}x + {c})");
     println!("{a}");
-    factor(a);
+    let (afact1, afact2): (Vec<i32>, Vec<i32>) = factor(a);
+    println!("{:?}\n{:?}", afact1, afact2);
+}
+
+
+fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
+    let mut fact1 = Vec::new(); 
+    let mut fact2 = Vec::new(); 
+
+    for n in 1..num + 1 {
+        if num % n == 0 {
+            if ! (fact1.contains(&n) || fact2.contains(&n)) {
+                fact1.push(n);
+                fact2.push(num / n);
+            }
+        }
+    }
+
+    for i in 0..fact1.len() {
+        println!("{} x {}", fact1[i], fact2[i]);
+    }
+    return (fact1, fact2);
 }
 
 fn get_gcf(a:i32, b:i32, c:i32) -> i32 {
@@ -36,34 +57,4 @@ fn get_gcf(a:i32, b:i32, c:i32) -> i32 {
         }
     }
     return gcf;
-}
-
-fn factor(num: i32){// -> Vec<i32> {
-    let mut fact1 = Vec::new(); 
-    let mut fact2 = Vec::new(); 
-
-    for n in 1..num + 1 {
-        if num % n == 0 {
-            if ! (fact1.contains(&n) || fact2.contains(&n)) {
-                fact1.push(n);
-                fact2.push(num / n);
-            }
-        }
-    }
-
-    for i in 0..fact1.len() {
-        println!("{} x {}", fact1[i], fact2[i]);
-    }
-}
-
-fn prime(n: i32) -> bool {
-    if n <= 1 {
-        return false;
-    }
-    for a in 2..n {
-        if n % a == 0 {
-            return false; 
-        }
-    }
-    true 
 }
