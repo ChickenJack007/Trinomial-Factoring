@@ -16,9 +16,27 @@ fn main() {
 
     println!("\n{}({}x^2 + {}x + {})", gcf, equation[0], equation[1], equation[2]);
     let (afact1, afact2): (Vec<i32>, Vec<i32>) = factor(equation[0]);
-    for i in 0..afact1.len() {
-        println!("{} x {}", afact1[i], afact2[i]);
+    let (cfact1, cfact2): (Vec<i32>, Vec<i32>) = factor(equation[2]);
+    let afacts: [Vec<i32>; 2] = [afact1, afact2];
+    let cfacts: [Vec<i32>; 2] = [cfact1, cfact2];
+    println!("{:?} {:?}", afacts[0], afacts[1]);
+    println!("{:?} {:?}", cfacts[0], cfacts[1]);
+    solve(afacts, cfacts, equation[1]);
+}
+
+fn solve(afacts: [Vec<i32>; 2], cfacts: [Vec<i32>; 2], b:i32) {
+    for a in 0..afacts[1].len() {
+        println!("({}x + {})({}x + {})", afacts[0][a], cfacts[0][a], afacts[1][a], cfacts[1][a]);
+        for n in 0..cfacts[0].len() {
+            let equation = (afacts[0][a] * cfacts[1][n]) + (afacts[1][a] * cfacts[0][n]);
+            println!("B = {equation}");
+            if equation == b {
+                println!("Works");
+                break;
+            }
+        }
     }
+    
 }
 
 fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
@@ -33,7 +51,6 @@ fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
             }
         }
     }
-
     return (fact1, fact2);
 }
 
