@@ -35,7 +35,6 @@ fn solve(afacts: [Vec<i32>; 2], cfacts: [Vec<i32>; 2], b:i32) {
             //println!("B = {equation}");
             if equation == b.abs() {
                 println!("({}x + {})({}x + {})", afacts[0][a], cfacts[0][n], afacts[1][a], cfacts[1][n]);
-                //println!("Works");
                 break;
             }
         }
@@ -48,10 +47,8 @@ fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
 
     for n in 1..num.abs() + 1 {
         if num % n == 0 {
-            //if ! (fact1.contains(&n) || fact2.contains(&n)) {
             fact1.push(n);
             fact2.push(num / n);
-            //}
         }
     }
     return (fact1, fact2);
