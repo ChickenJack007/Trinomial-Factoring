@@ -1,12 +1,18 @@
 use input_loop::input_loop;
 
 fn main() {
-    println!("ax^2 + bx + c\n");
     let mut equation: [i32; 3] = [1; 3];
-    equation[0] = input_loop("Please input a"); 
-    equation[1] = input_loop("Please input b"); 
-    equation[2] = input_loop("Please input c"); 
-    println!("\n{}x^2 + {}x + {}", equation[0], equation[1], equation[2]);
+    let mut running: bool = true;
+    while running{
+        println!("ax^2 + bx + c\n");
+        equation[0] = input_loop("Please input a"); 
+        equation[1] = input_loop("Please input b"); 
+        equation[2] = input_loop("Please input c"); 
+        println!("\n{}x^2 + {}x + {}", equation[0], equation[1], equation[2]);
+        if input_loop::<char>("Is this correct? [y/n]") == 'y'{
+            running = false;
+        }
+    }
 
     let gcf: i32 = get_gcf(equation);
     println!("\nGCF: {gcf}");
@@ -42,10 +48,10 @@ fn factor(num: i32) -> (Vec<i32>, Vec<i32>) {
 
     for n in 1..num.abs() + 1 {
         if num % n == 0 {
-            if ! (fact1.contains(&n) || fact2.contains(&n)) {
-                fact1.push(n);
-                fact2.push(num / n);
-            }
+            //if ! (fact1.contains(&n) || fact2.contains(&n)) {
+            fact1.push(n);
+            fact2.push(num / n);
+            //}
         }
     }
     return (fact1, fact2);
